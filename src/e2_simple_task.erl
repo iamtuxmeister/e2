@@ -41,8 +41,8 @@ handle_task(Spec) ->
     try apply_task_spec(Spec) of
         _ -> {stop, normal}
     catch
-        T:E ->
-            {stop, {T, E, erlang:get_stacktrace()}}
+        Class:Reason:Stacktrace ->
+            {stop, {Class, Reason, Stacktrace}}
     end.
 
 validate_task_spec(Fun) when is_function(Fun) ->

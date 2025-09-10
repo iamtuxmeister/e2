@@ -179,9 +179,8 @@ try_dispatch_published_msg(Msg, Subscriber) ->
     catch
         %% TODO: This should be a configurable policy (e.g. custom
         %% handlers, log and remove handler, etc.
-        T:E ->
-            ST = erlang:get_stacktrace(),
-            error_logger:error_report({msg_dispatch, {T, E, ST}})
+        Class:Reason:Stacktrace ->
+            error_logger:error_report({msg_dispatch, {Class, Reason, Stacktrace}})
     end.
 
 dispatch_published_msg(Msg, Pid) when is_pid(Pid) ->
